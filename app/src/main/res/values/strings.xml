@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MostPopularNYTimes</string>
     <string name="title_article_detail">Article Detail</string>
-    <string name="about_details">This application uses The New York Times API. It is an unofficial application and is not endorsed by The New York Times.</string>
+    <string name="about_details">This application uses The New York Times API. It is an unofficial application and is not endorsed by The New York Times. Developed for VRGSoft/</string>
     <string name="nytimes_dev_url">http://developer.nytimes.com</string>
     <string name="api_key_needed">Please obtain your API KEY first from http://developer.nytimes.com</string>
 </resources>

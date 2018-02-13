@@ -48,20 +48,20 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
         String formattedDate =  android.text.format.DateFormat.format("yyyy-MM-dd", articles.get(position).getPublishedDate()).toString();
         holder.dateView.setText(formattedDate);
 
-//        holder.mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                    Context context = v.getContext();
-//                    Intent intent = new Intent(context, ArticleDetailActivity.class);
-//                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_URL, holder.article.getUrl());
-//                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_TITLE, holder.article.getTitle());
-//                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_ABSTRACT, holder.article.getAbstractText());
-//                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_BYLINE, holder.article.getByLine());
-//                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_DATE, holder.article.getPublishedDate());
-//
-//                    context.startActivity(intent);
-//            }
-//        });
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, ArticleDetailActivity.class);
+                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_URL, holder.article.getUrl());
+                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_TITLE, holder.article.getTitle());
+                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_ABSTRACT, holder.article.getAbstractText());
+                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_BYLINE, holder.article.getByLine());
+                    intent.putExtra(ArticleDetailFragment.ARG_ARTICLE_DATE, holder.article.getPublishedDate());
+
+                    context.startActivity(intent);
+            }
+        });
     }
 
     @Override

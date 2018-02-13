@@ -10,6 +10,6 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
-    @GET("mostviewed/{section}/{time-period}.json")
-    Call<ArticleResponse> getArticles(@Path("section") String section, @Path("time-period") int timePeriod, @Query("api_key") String apiKey);
+    @GET("{type}/{section}/{time-period}.json")
+    Call<ArticleResponse> getArticles(@Path("type") String most,@Path("section") String section, @Path("time-period") int timePeriod, @Query("api_key") String apiKey);
 }
