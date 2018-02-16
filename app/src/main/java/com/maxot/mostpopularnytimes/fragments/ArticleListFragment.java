@@ -65,7 +65,7 @@ public class ArticleListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Add swipe refresher
-        swipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.swiperefresh);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -82,7 +82,6 @@ public class ArticleListFragment extends Fragment {
         View view = inflater.inflate(R.layout.article_list, container, false);
         API_KEY = getResources().getString(R.string.nytimes_api_key);
         recyclerView = (RecyclerView) view.findViewById(R.id.article_list);
-
 
         assert recyclerView != null;
         if (API_KEY.isEmpty()) {

@@ -8,9 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.maxot.mostpopularnytimes.model.Article;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static android.provider.BaseColumns._ID;
 import static com.maxot.mostpopularnytimes.DB.ArticlesContainer.Articles.COLUMN_NAME_ABSTRACT;
@@ -83,7 +85,7 @@ public class ArticleDbHelper extends SQLiteOpenHelper {
     // Getting article by ID
     public Article getArticle(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Article article;
+        Article article = new Article();
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
@@ -107,34 +109,45 @@ public class ArticleDbHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
         // For parse Date to string
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//        try {
+        try {
             article = new Article(
                     cursor.getString(0),
                     cursor.getString(1),
                     cursor.getString(2),
-                    cursor.getString(3));
-                 //   format.parse(cursor.getString(4)));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+                    cursor.getString(3),
+                    format.parse(cursor.getString(4)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         db.close();
         return  article;
     }
+
     //Getting all articles
-    public List<Article> gellAllArticle(){
+    public List<Article> getAllArticle(){
         List<Article> articleList = new ArrayList<Article>();
         //Select all query
         String selectQuery = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        SimpleDateFormat format = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy", Locale.ENGLISH);
 
         if (cursor.moveToFirst()){
             do{
-                Article article = new Article();
-                article.setUrl(cursor.getString(1));
-                articleList.add(article);
+                try{
+                    Article article = new Article();
+                    article.setUrl(cursor.getString(1));
+                    article.setTitle(cursor.getString(2));
+                    article.setAbstractText(cursor.getString(3));
+                    article.setByLine(cursor.getString(4));
+                    article.setPublishedDate(format.parse(cursor.getString(5)));
+                    articleList.add(article);
+                }catch (ParseException e) {
+                    e.printStackTrace();
+                }
             } while (cursor.moveToNext());
         }
+        db.close();
         return articleList;
     }
     // Deleting an article
@@ -144,25 +157,23 @@ public class ArticleDbHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(article.getUrl()) });
         db.close();
     }
-    //Clean the table
+    // Clean the table
     public void cleanTable(){
         SQLiteDatabase db = this.getReadableDatabase();
         db.delete(TABLE_NAME, null, null);
         db.close();
     }
-    //Check the article in DB?
+    // Check the article in DB?
     public boolean checkArticle(Article article){
         boolean check = false;
         SQLiteDatabase db = this.getReadableDatabase();
-        List<Article> articleList = gellAllArticle();
+        List<Article> articleList = getAllArticle();
         for (Article a:
                 articleList) {
             if (article.getUrl().equals(a.getUrl()))  {
-              //  Log.d("DB", article.getUrl() + " = " + holder.article.getUrl());
                 check = true;
             }
         }
-      //  Log.d("DB", articleList.toString());
         db.close();
         return check;
     }

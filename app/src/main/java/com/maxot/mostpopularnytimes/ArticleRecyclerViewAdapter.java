@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,7 @@ import java.util.List;
 public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecyclerViewAdapter.ViewHolder> {
 
     private List<Article> articles;
-    private int rowLayout;
     private Context context;
-
 
 
     public ArticleRecyclerViewAdapter(List<Article> articles, Context context) {
@@ -39,7 +38,6 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.article = articles.get(position);
-        //holder.mIdView.setText(articles.get(position).getPublishedDate().toString());
         if(articles.get(position).getMedia() != null && !articles.get(position).getMedia().isEmpty() &&
                 articles.get(position).getMedia().get(0).getMediaMetaDatas() != null &&
                 !articles.get(position).getMedia().get(0).getMediaMetaDatas().isEmpty()) {
@@ -48,7 +46,6 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
         holder.titleView.setText(articles.get(position).getTitle());
         holder.bylineView.setText(articles.get(position).getByLine());
 
-        android.text.format.DateFormat df = new android.text.format.DateFormat();
         String formattedDate =  android.text.format.DateFormat.format("yyyy-MM-dd", articles.get(position).getPublishedDate()).toString();
         holder.dateView.setText(formattedDate);
 
@@ -82,12 +79,12 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
                  if( db.checkArticle(holder.article) == true) {
                      db.deleteArticle(holder.article);
                      holder.mCheckBox.setButtonDrawable(R.drawable.btn_star_big_off);
+                     Log.d("DB", holder.article.getUrl() + " is delete");
                  }else {
                      db.addArticle(holder.article);
                      holder.mCheckBox.setButtonDrawable(R.drawable.btn_star_big_on);
+                     Log.d("DB", holder.article.getUrl() + " is add");
                  }
-//                Article article = db.getArticle(1);
-//                Log.d("DB", article.getTitle() +" " + article.getByLine());
             }
         });
 

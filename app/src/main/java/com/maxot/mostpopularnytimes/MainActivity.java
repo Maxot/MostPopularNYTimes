@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.maxot.mostpopularnytimes.fragments.ArticleFavoriteFragment;
 import com.maxot.mostpopularnytimes.fragments.ArticleListFragment;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
             adapter.addFragment(new ArticleListFragment().newInstance("mostviewed"),"Viewed");
             adapter.addFragment(new ArticleListFragment().newInstance("mostemailed"),"Emailed");
             adapter.addFragment(new ArticleListFragment().newInstance("mostshared"),"Shared");
+            adapter.addFragment(new ArticleFavoriteFragment(), "Favorite");
 
             viewPager.setAdapter(adapter);
     }
