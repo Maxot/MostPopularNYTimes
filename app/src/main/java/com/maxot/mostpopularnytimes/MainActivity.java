@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
         //Add Fragments to Tabs
         private void setupViewPager(ViewPager viewPager){

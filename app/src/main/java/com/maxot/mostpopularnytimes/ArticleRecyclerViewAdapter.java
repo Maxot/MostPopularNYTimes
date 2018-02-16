@@ -2,6 +2,7 @@ package com.maxot.mostpopularnytimes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.maxot.mostpopularnytimes.DB.ArticleDbHelper;
 import com.maxot.mostpopularnytimes.model.Article;
 import com.squareup.picasso.Picasso;
 
@@ -19,6 +21,8 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
     private List<Article> articles;
     private int rowLayout;
     private Context context;
+
+
 
     public ArticleRecyclerViewAdapter(List<Article> articles, Context context) {
         this.articles = articles;
@@ -48,6 +52,13 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
         String formattedDate =  android.text.format.DateFormat.format("yyyy-MM-dd", articles.get(position).getPublishedDate()).toString();
         holder.dateView.setText(formattedDate);
 
+        //Check if article exist in DB
+        ArticleDbHelper db = new ArticleDbHelper(context);
+        if( db.checkArticle(holder.article) == true) {
+            holder.mCheckBox.setButtonDrawable(R.drawable.btn_star_big_on);
+        }else holder.mCheckBox.setButtonDrawable(R.drawable.btn_star_big_off);
+
+        // Show detail info about article
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +73,24 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
                     context.startActivity(intent);
             }
         });
+        //Add to favorite and checked if article exist in db
+        holder.mCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArticleDbHelper db = new ArticleDbHelper(context);
+                //db.cleanTable();
+                 if( db.checkArticle(holder.article) == true) {
+                     db.deleteArticle(holder.article);
+                     holder.mCheckBox.setButtonDrawable(R.drawable.btn_star_big_off);
+                 }else {
+                     db.addArticle(holder.article);
+                     holder.mCheckBox.setButtonDrawable(R.drawable.btn_star_big_on);
+                 }
+//                Article article = db.getArticle(1);
+//                Log.d("DB", article.getTitle() +" " + article.getByLine());
+            }
+        });
+
     }
 
     @Override
@@ -75,6 +104,7 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
         public final TextView titleView;
         public final TextView bylineView;
         public final TextView dateView;
+        public final AppCompatCheckBox mCheckBox;
         public Article article;
 
         public ViewHolder(View view) {
@@ -84,6 +114,7 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
             titleView = (TextView) view.findViewById(R.id.list_title);
             bylineView = (TextView) view.findViewById(R.id.list_byline);
             dateView = (TextView) view.findViewById(R.id.list_date);
+            mCheckBox = (AppCompatCheckBox) view.findViewById(R.id.checkStar);
         }
 
         @Override

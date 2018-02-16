@@ -25,12 +25,20 @@ public class Article {
     @SerializedName("media")
     private MediaList media;
 
+    public Article(){}
+
     public Article(String url, String title, String abstractText, String byLine, Date publishedDate) {
         this.url = url;
         this.title = title;
         this.abstractText = abstractText;
         this.byLine = byLine;
         this.publishedDate = publishedDate;
+    }
+    public Article(String url, String title, String abstractText, String byLine) {
+        this.url = url;
+        this.title = title;
+        this.abstractText = abstractText;
+        this.byLine = byLine;
     }
 
 
@@ -57,4 +65,29 @@ public class Article {
     public MediaList getMedia() {
         return media;
     }
+
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAbstractText(String abstractText) {
+        this.abstractText = abstractText;
+    }
+
+    public void setByLine(String byLine) {
+        this.byLine = byLine;
+    }
+
+    public void setPublishedDate(Date publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+//    public void setMedia() {
+//
+//    }
 }
