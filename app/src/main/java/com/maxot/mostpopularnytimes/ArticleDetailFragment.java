@@ -14,9 +14,6 @@ import java.util.Date;
 
 /**
  * A fragment representing a single Article detail screen.
- * This fragment is either contained in a {@link com.maxot.mostpopularnytimes.fragments.ArticleListFragment}
- * in two-pane mode (on tablets) or a {@link ArticleDetailActivity}
- * on handsets.
  */
 public class ArticleDetailFragment extends Fragment {
     /**
@@ -29,15 +26,9 @@ public class ArticleDetailFragment extends Fragment {
     public static final String ARG_ARTICLE_DATE = "article_date";
     public static final String ARG_ARTICLE_BYLINE = "article_byline";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
+    // The dummy content this fragment is presenting.
     private Article article;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public ArticleDetailFragment() {
     }
 
@@ -49,8 +40,6 @@ public class ArticleDetailFragment extends Fragment {
                 getArguments().containsKey(ARG_ARTICLE_ABSTRACT) && getArguments().containsKey(ARG_ARTICLE_BYLINE) &&
                 getArguments().containsKey(ARG_ARTICLE_DATE)) {
             // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
             article = new Article(getArguments().getString(ARG_ARTICLE_URL), getArguments().getString(ARG_ARTICLE_TITLE),
                     getArguments().getString(ARG_ARTICLE_ABSTRACT), getArguments().getString(ARG_ARTICLE_BYLINE),
                     (Date)getArguments().getSerializable(ARG_ARTICLE_DATE));
@@ -72,7 +61,6 @@ public class ArticleDetailFragment extends Fragment {
                 appBarLayout.setTitle(article.getTitle());
             }
         }
-
         return rootView;
     }
 }

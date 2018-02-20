@@ -41,7 +41,6 @@
 
     </LinearLayout>
 
-
     <CheckBox
         android:id="@+id/checkStar"
         android:layout_width="wrap_content"

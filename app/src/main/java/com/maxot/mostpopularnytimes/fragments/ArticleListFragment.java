@@ -39,13 +39,12 @@ public class ArticleListFragment extends Fragment {
     private static final String BUNDLE_CONTENT = "bundle_content";
     private String content;
 
-
+    //A method for creating new fragment with arguments
     public static ArticleListFragment newInstance(final String content) {
         final ArticleListFragment fragment = new ArticleListFragment();
         final Bundle arguments = new Bundle();
         arguments.putString(BUNDLE_CONTENT, content);
         fragment.setArguments(arguments);
-
         return fragment;
     }
 
@@ -57,7 +56,6 @@ public class ArticleListFragment extends Fragment {
         } else {
             throw new IllegalArgumentException("Must be created through newInstance(...)");
         }
-
     }
 
     @Override
@@ -82,7 +80,7 @@ public class ArticleListFragment extends Fragment {
         View view = inflater.inflate(R.layout.article_list, container, false);
         API_KEY = getResources().getString(R.string.nytimes_api_key);
         recyclerView = (RecyclerView) view.findViewById(R.id.article_list);
-
+        //Check for null
         assert recyclerView != null;
         if (API_KEY.isEmpty()) {
             Toast.makeText(getActivity().getApplicationContext(), "Need API-key", Toast.LENGTH_LONG).show();

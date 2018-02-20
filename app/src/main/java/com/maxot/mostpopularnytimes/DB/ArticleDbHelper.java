@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static android.provider.BaseColumns._ID;
 import static com.maxot.mostpopularnytimes.DB.ArticlesContainer.Articles.COLUMN_NAME_ABSTRACT;
 import static com.maxot.mostpopularnytimes.DB.ArticlesContainer.Articles.COLUMN_NAME_BYLINE;
 import static com.maxot.mostpopularnytimes.DB.ArticlesContainer.Articles.COLUMN_NAME_PUBLISHED_DATA;
@@ -23,7 +22,7 @@ import static com.maxot.mostpopularnytimes.DB.ArticlesContainer.Articles.COLUMN_
 import static com.maxot.mostpopularnytimes.DB.ArticlesContainer.Articles.TABLE_NAME;
 
 /**
- * Created by maxot on 15.02.18.
+ * Working with DB.
  */
 
 public class ArticleDbHelper extends SQLiteOpenHelper {
@@ -39,7 +38,6 @@ public class ArticleDbHelper extends SQLiteOpenHelper {
                     COLUMN_NAME_BYLINE + TEXT_TYPE + COMMA_SEP +
                     COLUMN_NAME_PUBLISHED_DATA + TEXT_TYPE +
                     " )";
-
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;
@@ -83,45 +81,45 @@ public class ArticleDbHelper extends SQLiteOpenHelper {
         return newRowId;
     }
     // Getting article by ID
-    public Article getArticle(int id){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Article article = new Article();
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                COLUMN_NAME_URL,
-                COLUMN_NAME_TITLE,
-                COLUMN_NAME_ABSTRACT,
-                COLUMN_NAME_BYLINE,
-                COLUMN_NAME_PUBLISHED_DATA
-        };
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                projection,
-                _ID + "=?",
-                new String[]{String.valueOf(id)},
-                null,
-                null,
-                null,
-                null
-        );
-        if (cursor != null)
-            cursor.moveToFirst();
-        // For parse Date to string
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            article = new Article(
-                    cursor.getString(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3),
-                    format.parse(cursor.getString(4)));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        db.close();
-        return  article;
-    }
+//    public Article getArticle(int id){
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Article article = new Article();
+//        // Define a projection that specifies which columns from the database
+//        // you will actually use after this query.
+//        String[] projection = {
+//                COLUMN_NAME_URL,
+//                COLUMN_NAME_TITLE,
+//                COLUMN_NAME_ABSTRACT,
+//                COLUMN_NAME_BYLINE,
+//                COLUMN_NAME_PUBLISHED_DATA
+//        };
+//        Cursor cursor = db.query(
+//                TABLE_NAME,
+//                projection,
+//                _ID + "=?",
+//                new String[]{String.valueOf(id)},
+//                null,
+//                null,
+//                null,
+//                null
+//        );
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//        // For parse Date to string
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        try {
+//            article = new Article(
+//                    cursor.getString(0),
+//                    cursor.getString(1),
+//                    cursor.getString(2),
+//                    cursor.getString(3),
+//                    format.parse(cursor.getString(4)));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        db.close();
+//        return  article;
+//    }
 
     //Getting all articles
     public List<Article> getAllArticle(){
@@ -163,7 +161,7 @@ public class ArticleDbHelper extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, null, null);
         db.close();
     }
-    // Check the article in DB?
+    // Check if the DB contain this article
     public boolean checkArticle(Article article){
         boolean check = false;
         SQLiteDatabase db = this.getReadableDatabase();

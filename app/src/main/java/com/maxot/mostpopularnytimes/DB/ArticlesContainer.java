@@ -3,7 +3,7 @@ package com.maxot.mostpopularnytimes.DB;
 import android.provider.BaseColumns;
 
 /**
- * Created by maxot on 15.02.18.
+ * Contain names of the table and the columns.
  */
 
 public final class ArticlesContainer {
@@ -15,6 +15,5 @@ public final class ArticlesContainer {
         public static final String COLUMN_NAME_ABSTRACT = "abstract";
         public static final String COLUMN_NAME_BYLINE = "byline";
         public static final String COLUMN_NAME_PUBLISHED_DATA = "published_data";
-
     }
 }

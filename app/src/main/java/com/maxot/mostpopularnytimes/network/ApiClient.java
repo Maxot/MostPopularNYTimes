@@ -38,7 +38,6 @@ public class ApiClient {
                     Gson gson = new Gson();
                     return gson.fromJson(json, MediaList.class);
                 }
-
                 return null;
             }
         }).create();

@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
+/**
+ * Representing the floating button that is contain about info.
+ */
 public class AboutActivity extends AppCompatActivity {
 
     private ImageButton imageButton;

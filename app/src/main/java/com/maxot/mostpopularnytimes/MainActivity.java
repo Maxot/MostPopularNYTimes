@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
             viewPager.setAdapter(adapter);
     }
-    //Adapter creating
+    //Adapter for creating tabs
     private class Adapter extends FragmentPagerAdapter{
         private List<Fragment> mFragmentList = new ArrayList<Fragment>();
         private List<String> mFragmentTitleList = new ArrayList<String>();

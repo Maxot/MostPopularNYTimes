@@ -17,6 +17,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * Adapter for showing list of articles.
+ */
+
 public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecyclerViewAdapter.ViewHolder> {
 
     private List<Article> articles;
@@ -49,7 +53,7 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
         String formattedDate =  android.text.format.DateFormat.format("yyyy-MM-dd", articles.get(position).getPublishedDate()).toString();
         holder.dateView.setText(formattedDate);
 
-        //Check if article exist in DB
+        // Check if article exist in DB
         ArticleDbHelper db = new ArticleDbHelper(context);
         if( db.checkArticle(holder.article) == true) {
             holder.mCheckBox.setButtonDrawable(R.drawable.btn_star_big_on);
@@ -70,7 +74,7 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
                     context.startActivity(intent);
             }
         });
-        //Add to favorite and checked if article exist in db
+        // Add to favorite and checked if article exist in db
         holder.mCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
