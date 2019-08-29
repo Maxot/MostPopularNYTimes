@@ -16,6 +16,8 @@ public class AboutActivity extends AppCompatActivity {
 
     //create
     //configuration
+    //design
+    //design2
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
